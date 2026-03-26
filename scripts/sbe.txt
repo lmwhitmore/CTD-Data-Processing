@@ -1,0 +1,7 @@
+datcnv /i"C:\Users\lmwhi\Desktop\Automatic CTD Processing\raw\%1.hex" /p"C:\Users\lmwhi\Desktop\Automatic CTD Processing\scripts\datcnv.psa" /c"C:\Users\lmwhi\Desktop\Automatic CTD Processing\raw\%1.xmlcon" 
+
+loopedit /i"C:\Users\lmwhi\Desktop\Automatic CTD Processing\proc\2025\%1.cnv" /p"C:\Users\lmwhi\Desktop\Automatic CTD Processing\scripts\LoopEdit.psa"
+
+binavg /i"C:\Users\lmwhi\Desktop\Automatic CTD Processing\proc\2025\%1.cnv" /p"C:\Users\lmwhi\Desktop\Automatic CTD Processing\scripts\binavg.psa"
+
+bottlesum /i"C:\Users\lmwhi\Desktop\Automatic CTD Processing\proc\2025\%1.ros" /p"C:\Users\lmwhi\Desktop\Automatic CTD Processing\scripts\bottlesum.psa" /c"C:\Users\lmwhi\Desktop\Automatic CTD Processing\raw\%1.xmlcon" 
