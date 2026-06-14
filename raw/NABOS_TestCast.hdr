@@ -1,0 +1,30 @@
+* Sea-Bird SBE 9 Data File:
+* FileName = D:\CTD\data\HLY2502\raw\NABOS_TestCast.hdr
+* Software Version Seasave V 7.26.7.110
+* Temperature SN = 6954
+* Conductivity SN = 2561
+* Number of Bytes Per Scan = 37
+* Number of Voltage Words = 4
+* Number of Scans Averaged by the Deck Unit = 1
+* System UpLoad Time = Aug 23 2025 00:14:20
+* NMEA Latitude = 54 51.60 N
+* NMEA Longitude = 155 23.75 W
+* NMEA UTC (Time) = Aug 23 2025  00:14:18
+* Store Lat/Lon Data = Append to Every Scan
+* SBE 11plus V 5.1g
+* number of scans to average = 1
+* pressure baud rate = 9600
+* NMEA baud rate = 9600
+* GPIB address = 1
+* advance primary conductivity  0.073 seconds
+* advance secondary conductivity  0.073 seconds
+* autorun on power up is disabled
+* S>
+** Ship: USCG HEALY 
+** Bot. Depth:  4270
+** Cast Number:  
+** Station Name:  test
+** Station Number:  
+** Operator:  STARC
+* System UTC = Aug 23 2025 00:14:20
+*END*
