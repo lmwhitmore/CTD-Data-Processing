@@ -1,0 +1,93 @@
+## SBEProcessessing Tools File Set-up
+## T.Kelly June 13, 2026
+
+## Use this script to write the paths for SBE Processing tools .psa files and sbe file. 
+
+#### Functions
+getpath = function(path) {
+  gsub('/', '\\\\', paste0(getwd(), '/', path))
+}
+
+generateDataConvertEntry = function(hexPath, psaPath, xmlconPath, outputDir) {
+  paste0('datcnv /i', getpath(hexPath), ' /p', getpath(psaPath), ' /c', getpath(xmlconPath), ' /o', getpath(outputDir))
+}
+
+generateLoopEditEntry = function(cnvPath, psaPath, outputDir) {
+  paste0('loopedit /i', getpath(cnvPath), ' /p', getpath(psaPath), ' /o', getpath(outputDir))
+}
+
+generateBinAvgEntry = function(cnvPath, psaPath, outputDir) {
+  paste0('binavg /i', getpath(cnvPath), ' /p', getpath(psaPath), ' /o', getpath(outputDir))
+}
+
+generateBottleSumEntry = function(rosPath, psaPath, xmlconPath, outputDir) {
+  paste0('bottlesum /i', getpath(rosPath), ' /p', getpath(psaPath), ' /c', getpath(xmlconPath), ' /o', getpath(outputDir))
+}
+
+runDataConv = function() {
+  system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/DatCnvW.exe')
+}
+
+runLoopEdit = function() {
+  system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/LoopEditW.exe')
+}
+
+runBinAvg = function() {
+  system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/BinAvgW.exe')
+}
+
+runBottleSum = function() {
+  system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/BottleSumW.exe')
+}
+
+
+## Paths
+outputDir = 'proc' # relative to current working directory. It works for absolute
+#                     reltive directories, e.g. 'data2', but I don't know if it will 
+#                     work for others like '../data' or '/Volumes/User/Data'
+
+## Run everything but bottle summary unless a ros file exists:
+tmpFilePath = gsub(' ', 'T', gsub(':', '_', Sys.time()))
+
+lines = c(
+  generateDataConvertEntry(
+    hexPath = 'raw/NABOS_01_01.hex',
+    psaPath = 'scripts/DatCnv.psa',
+    xmlconPath = 'raw/NABOS_01_01.XMLCON',
+    outputDir = outputDir),
+  generateLoopEditEntry(
+    cnvPath = paste0(outputDir, '/NABOS_01_01.cnv'),
+    psaPath = 'scripts/LoopEdit.psa',
+    outputDir = outputDir),
+  generateBinAvgEntry(
+    cnvPath = paste0(outputDir, '/NABOS_01_01.cnv'),
+    psaPath = 'scripts/BinAvg.psa',
+    outputDir = outputDir)
+)
+
+writeLines(
+  con = tmpFilePath,
+  lines,
+  sep = '\n'
+)
+
+system(paste0('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEBatch.exe ', tmpFilePath))
+
+
+## if ros file exists, then run bottle summary.
+# I don't have data to actually test this with, so this is the most likely part to break.
+if (file.exists(paste0(outputDir, '/NABOS_01_01.ros'))) {
+  generateBottleSumEntry (
+    rosPath = paste0(outputDir, 'NABOS_01_01.ros'),
+    psaPath = 'scripts/BottleSum.psa',
+    xmlconPath = 'raw/NABOS_01_01.XMLCON',
+    outputDir = outputDir)
+  
+  writeLines(
+    con = tmpFilePath,
+    lines,
+    sep = '\n'
+  )
+  
+  system(paste0('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEBatch.exe ', tmpFilePath))
+}
