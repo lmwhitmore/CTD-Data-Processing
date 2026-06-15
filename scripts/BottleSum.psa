@@ -10,7 +10,7 @@
   </InputFileArray>
   <OutputDir value="C:\Users\lmwhi\Desktop\Automatic CTD Processing\proc\2025" />
   <NameAppend value="" />
-  <OutputFile value="hly2302_station1_cast1.btl" />
+  <OutputFile value="" />
   <LastProcessed value="0" />
   <OutputMinMaxValues value="0" />
   <AverageCalcArray Size="23" >

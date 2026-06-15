@@ -1,0 +1,3 @@
+datcnv /i\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\NABOS_05_02.hex /p\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\scripts\DatCnv.psa /c\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\NABOS_05_02.XMLCON /o\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\proc
+loopedit /i\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\proc\NABOS_05_02.cnv /p\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\scripts\LoopEdit.psa /o\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\proc
+binavg /i\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\proc\NABOS_05_02.cnv /p\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\scripts\BinAvg.psa /o\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\proc
