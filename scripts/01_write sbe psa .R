@@ -49,39 +49,28 @@ outputDir = 'proc' # relative to current working directory. It works for absolut
 ## Run everything but bottle summary unless a ros file exists:
 tmpFilePath = gsub(' ', 'T', gsub(':', '_', Sys.time()))
 
-lines = c(
-  generateDataConvertEntry(
-    hexPath = 'raw/NABOS_01_01.hex',
-    psaPath = 'scripts/DatCnv.psa',
-    xmlconPath = 'raw/NABOS_01_01.XMLCON',
-    outputDir = outputDir),
-  generateLoopEditEntry(
-    cnvPath = paste0(outputDir, '/NABOS_01_01.cnv'),
-    psaPath = 'scripts/LoopEdit.psa',
-    outputDir = outputDir),
-  generateBinAvgEntry(
-    cnvPath = paste0(outputDir, '/NABOS_01_01.cnv'),
-    psaPath = 'scripts/BinAvg.psa',
-    outputDir = outputDir)
-)
+hexFiles = list.files('raw', pattern = '.hex')
 
-writeLines(
-  con = tmpFilePath,
-  lines,
-  sep = '\n'
-)
-
-system(paste0('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEBatch.exe ', tmpFilePath))
-
-
-## if ros file exists, then run bottle summary.
-# I don't have data to actually test this with, so this is the most likely part to break.
-if (file.exists(paste0(outputDir, '/NABOS_01_01.ros'))) {
-  generateBottleSumEntry (
-    rosPath = paste0(outputDir, 'NABOS_01_01.ros'),
-    psaPath = 'scripts/BottleSum.psa',
-    xmlconPath = 'raw/NABOS_01_01.XMLCON',
-    outputDir = outputDir)
+for (i in 1:length(hexFiles)) { 
+  
+  hex = hexFiles[i]
+  name = strsplit(hexFiles[i], '.hex')[[1]][1]
+  
+  lines = c(
+    generateDataConvertEntry(
+      hexPath = paste0('raw/',hex), #raw/NABOS_01_01.hex'
+      psaPath = 'scripts/DatCnv.psa',
+      xmlconPath = paste0('raw/',name,'.XMLCON'), #'raw/NABOS_01_01.XMLCON',
+      outputDir = outputDir),
+    generateLoopEditEntry(
+      cnvPath = paste0(outputDir, '/', name, '.cnv'), # paste0(outputDir, '/NABOS_01_01.cnv')
+      psaPath = 'scripts/LoopEdit.psa',
+      outputDir = outputDir),
+    generateBinAvgEntry(
+      cnvPath = paste0(outputDir, '/', name, '.cnv'), # paste0(outputDir, '/NABOS_01_01.cnv'),
+      psaPath = 'scripts/BinAvg.psa',
+      outputDir = outputDir)
+  )
   
   writeLines(
     con = tmpFilePath,
@@ -90,4 +79,26 @@ if (file.exists(paste0(outputDir, '/NABOS_01_01.ros'))) {
   )
   
   system(paste0('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEBatch.exe ', tmpFilePath))
+  
+  ## delete tmpFile? 
+  
+  ## if ros file exists, then run bottle summary.
+  # I don't have data to actually test this with, so this is the most likely part to break.
+  if (file.exists(paste0(outputDir,'/',name,'.ros'))) { 
+    lines = generateBottleSumEntry(
+      rosPath = paste0(outputDir, '/',name,'.ros'), #/NABOS_01_01.ros'),
+      psaPath = 'scripts/BottleSum.psa',
+      xmlconPath = paste0('raw/',name,'.XMLCON'),
+      outputDir = outputDir)
+    
+    writeLines(
+      con = tmpFilePath,
+      lines,
+      sep = '\n'
+    )
+    
+    system(paste0('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEBatch.exe ', tmpFilePath))
+  }
+  #delete tmpfile
 }
+  
