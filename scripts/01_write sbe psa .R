@@ -20,6 +20,14 @@ generateBinAvgEntry = function(cnvPath, psaPath, outputDir) {
   paste0('binavg /i', getpath(cnvPath), ' /p', getpath(psaPath), ' /o', getpath(outputDir))
 }
 
+generateFilterEntry = function(cnvPath, psaPath, outputDir) {
+  paste0('filter /i', getpath(cnvPath), ' /p', getpath(psaPath), ' /o', getpath(outputDir))
+}
+
+generateCellTMEntry = function(cnvPath, psaPath, outputDir) {
+  paste0('celltm /i', getpath(cnvPath), ' /p', getpath(psaPath), ' /o', getpath(outputDir))
+}
+
 generateBottleSumEntry = function(rosPath, psaPath, xmlconPath, outputDir) {
   paste0('bottlesum /i', getpath(rosPath), ' /p', getpath(psaPath), ' /c', getpath(xmlconPath), ' /o', getpath(outputDir))
 }
@@ -36,8 +44,21 @@ runBinAvg = function() {
   system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/BinAvgW.exe')
 }
 
+runFilter = function() {
+  system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/FilterW.exe')
+}
+
+runCellTM = function() {
+  system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/CellTMW.exe')
+}
+
 runBottleSum = function() {
   system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/BottleSumW.exe')
+}
+
+
+runSBE = function() {
+  system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEDataProc.exe')
 }
 
 
@@ -61,6 +82,14 @@ for (i in 1:length(hexFiles)) {
       hexPath = paste0('raw/',hex), #raw/NABOS_01_01.hex'
       psaPath = 'scripts/DatCnv.psa',
       xmlconPath = paste0('raw/',name,'.XMLCON'), #'raw/NABOS_01_01.XMLCON',
+      outputDir = outputDir),
+    generateFilterEntry(
+      cnvPath = paste0(outputDir, '/', name, '.cnv'), # paste0(outputDir, '/NABOS_01_01.cnv'),
+      psaPath = 'scripts/Filter.psa',
+      outputDir = outputDir),
+    generateCellTMEntry(
+      cnvPath = paste0(outputDir, '/', name, '.cnv'), # paste0(outputDir, '/NABOS_01_01.cnv'),
+      psaPath = 'scripts/CellTM.psa',
       outputDir = outputDir),
     generateLoopEditEntry(
       cnvPath = paste0(outputDir, '/', name, '.cnv'), # paste0(outputDir, '/NABOS_01_01.cnv')

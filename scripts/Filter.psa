@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Filter >
+  <Version value="7.26.7.129" />
+  <ServerName value="Filter" />
+  <InputDir value="Z:\Users\tbkelly\Downloads\CTD-Data-Processing\raw" />
+  <InputFileArray size="1" GrowBy="-1" >
+    <ArrayItem index="0" value="NABOS_15_02.cn" />
+  </InputFileArray>
+  <OutputDir value="Z:\Users\tbkelly\Downloads\CTD-Data-Processing\raw" />
+  <NameAppend value="" />
+  <OutputFile value="NABOS_15_02.cnv" />
+  <LastProcessed value="0" />
+  <TimeConstFilterA value="0.030000" />
+  <TimeConstFilterB value="0.150000" />
+  <CalcArray Size="1" >
+    <CalcArrayItem index="0" CalcID="65" >
+      <Calc UnitID="3" Ordinal="0" >
+        <FullName value="Pressure, Digiquartz [db]" />
+      </Calc>
+    </CalcArrayItem>
+  </CalcArray>
+  <FilterTypeArray >
+    <ArrayItem index="0" value="2" />
+  </FilterTypeArray>
+</Filter>
