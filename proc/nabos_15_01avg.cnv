@@ -321,17 +321,17 @@
 #     <!-- A/D voltage 7, Free -->
 #   </sensor>
 # </Sensors>
-# datcnv_date = Jun 14 2026 17:12:13, 7.26.7.129 [datcnv_vars = 23]
+# datcnv_date = Jul 21 2026 09:51:11, 7.26.7.129 [datcnv_vars = 23]
 # datcnv_in = Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\nabos_15_01.hex Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\nabos_15_01.XMLCON
 # datcnv_skipover = 0
 # datcnv_ox_hysteresis_correction = yes
 # datcnv_ox_tau_correction = no
-# loopedit_date = Jun 14 2026 17:12:22, 7.26.7.129
+# loopedit_date = Jul 21 2026 09:51:40, 7.26.7.129
 # loopedit_in = Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\proc\nabos_15_01.cnv
 # loopedit_minVelocity = 0.000                                                                                            
 # loopedit_surfaceSoak: minDepth = 5.0, maxDepth = 25, useDeckPress = 0                                                   
 # loopedit_excl_bad_scans = yes
-# binavg_date = Jun 14 2026 17:12:30, 7.26.7.129
+# binavg_date = Jul 21 2026 09:52:31, 7.26.7.129
 # binavg_in = Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\proc\nabos_15_01.cnv
 # binavg_bintype = decibars
 # binavg_binsize = 1

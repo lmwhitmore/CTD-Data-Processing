@@ -56,7 +56,6 @@ runBottleSum = function() {
   system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/BottleSumW.exe')
 }
 
-
 runSBE = function() {
   system('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEDataProc.exe')
 }

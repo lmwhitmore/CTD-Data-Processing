@@ -276,13 +276,13 @@
 #     <!-- A/D voltage 7, Free -->
 #   </sensor>
 # </Sensors>
-# datcnv_date = Jun 14 2026 17:20:53, 7.26.7.129
+# datcnv_date = Jul 21 2026 10:50:08, 7.26.7.129
 # datcnv_in = Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\nabos_43_01.hex Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\nabos_43_01.XMLCON
 # datcnv_ox_hysteresis_correction = yes
 # datcnv_ox_tau_correction = no
 # datcnv_bottle_scan_range_source = scans marked with bottle confirm bit, 0, 2
 # datcnv_scans_per_bottle = 49
-# bottlesum_date = Jun 14 2026 17:21:07, 7.26.7.129
+# bottlesum_date = Jul 21 2026 10:52:23, 7.26.7.129
 # bottlesum_in = Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\proc\nabos_43_01.ros Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\NABOS_43_01.XMLCON
     Bottle        Date      DepSM   Latitude  Longitude       PrDM      T090C      T190C    C0mS/cm    C1mS/cm      Sal00      Sal11 Sbox0Mm/Kg Sbox1Mm/Kg  FlECO-AFL         V2    WetCDOM         V6   CStarAt0         V3       Scan      TimeM       AltM    Sbeox0V    Sbeox1V
   Position        Time                                                                                                                                                                                                                                                             
