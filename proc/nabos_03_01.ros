@@ -306,7 +306,7 @@
 #     <!-- A/D voltage 7, Free -->
 #   </sensor>
 # </Sensors>
-# datcnv_date = Jul 21 2026 09:42:53, 7.26.7.129
+# datcnv_date = Jul 21 2026 13:05:18, 7.26.7.129
 # datcnv_in = Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\nabos_03_01.hex Z:\Users\lmwhitmore\Documents\GitHub\CTD-Data-Processing\raw\nabos_03_01.XMLCON
 # datcnv_ox_hysteresis_correction = yes
 # datcnv_ox_tau_correction = no

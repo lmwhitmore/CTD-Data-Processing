@@ -8,7 +8,7 @@
   </InputFileArray>
   <OutputDir value="Z:\Users\tbkelly\Downloads\CTD-Data-Processing\raw" />
   <NameAppend value="" />
-  <OutputFile value="NABOS_15_02.cnv" />
+  <OutputFile value="" />
   <LastProcessed value="0" />
   <Primary >
     <Correct value="1" />

@@ -106,7 +106,7 @@ for (i in 1:length(hexFiles)) {
     sep = '\n'
   )
   
-  system(paste0('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEBatch.exe ', tmpFilePath))
+system(paste0('wine ~/.wine/drive_c/Program\\ Files\\ \\(x86\\)/Sea-Bird/SBEDataProcessing-Win32/SBEBatch.exe ', tmpFilePath))
   
   ## delete tmpFile? 
   

@@ -4,11 +4,11 @@
   <ServerName value="Filter" />
   <InputDir value="Z:\Users\tbkelly\Downloads\CTD-Data-Processing\raw" />
   <InputFileArray size="1" GrowBy="-1" >
-    <ArrayItem index="0" value="NABOS_15_02.cn" />
+    <ArrayItem index="0" value="NABOS_15_02.cnv" />
   </InputFileArray>
   <OutputDir value="Z:\Users\tbkelly\Downloads\CTD-Data-Processing\raw" />
   <NameAppend value="" />
-  <OutputFile value="NABOS_15_02.cnv" />
+  <OutputFile value="" />
   <LastProcessed value="0" />
   <TimeConstFilterA value="0.030000" />
   <TimeConstFilterB value="0.150000" />
