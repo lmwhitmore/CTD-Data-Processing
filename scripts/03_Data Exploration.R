@@ -9,8 +9,8 @@ source("https://raw.githubusercontent.com/tbrycekelly/TheSource/refs/heads/maste
 source('https://raw.githubusercontent.com/tbrycekelly/TheSource/refs/heads/master/R/pal.R')
 
 #import downcast and bottle
-downcast = readRDS('./output/sbe stage/20260720_SBEStage_downcast.RDS')
-bottles = readRDS('./output/sbe stage/20260720_SBEStage_bottles.RDS')
+downcast = readRDS('./output/sbe stage/20260721_SBEStage_downcast.RDS')
+bottles = readRDS('./output/sbe stage/20260721_SBEStage_bottles.RDS')
 
 
 #new.downcast = downcast ## this is without clearing rm(list = ls()) from step 02_getCombinedOutput.R
@@ -75,77 +75,51 @@ bottles$Sbox1Mm.Kg = NA
   
 #### EXPORT INTERMEDIATE CTD DATA ####
   
-  saveRDS(downcast, './output/intermediate stage/NABOS2025_20260720_INTERMEDIATE_Downcast.RDS')
-  saveRDS(bottles, './output/intermediate stage/NABOS2025_20260720_INTERMEDIATE_Bottle.RDS')
-  write.xlsx(downcast, './output/intermediate stage/NABOS2025_20260720_INTERMEDIATE_Downcast.xlsx')
-  write.xlsx(bottles, './output/intermediate stage/NABOS2025_20260720_INTERMEDIATE_Bottle.xlsx')
+  saveRDS(downcast, './output/intermediate stage/NABOS2025_20260721_INTERMEDIATE_Downcast.RDS')
+  saveRDS(bottles, './output/intermediate stage/NABOS2025_20260721_INTERMEDIATE_Bottle.RDS')
+  write.xlsx(downcast, './output/intermediate stage/NABOS2025_20260721_INTERMEDIATE_Downcast.xlsx')
+  write.xlsx(bottles, './output/intermediate stage/NABOS2025_20260721_INTERMEDIATE_Bottle.xlsx')
   
   
-#### Compare to 20260619 Version
-
-june.downcast = readRDS('../../Tasks/07 Data Submission Prep/NABOS/CTD/2025 Automatic CTD Processing/output/intermediate stage/NABOS2025_INTERMEDIATE_Downcast.RDS')
+#### Compare to 20260619 Version  
+  library(dplyr)
+  
+  
+  june.downcast = readRDS('../../Tasks/07 Data Submission Prep/NABOS/CTD/2025 Automatic CTD Processing/output/intermediate stage/NABOS2025_INTERMEDIATE_Downcast.RDS')
+  
+  df_compare <- downcast %>%
+    inner_join(june.downcast,
+               by = c("Station", "Cast", "depSM"),
+               suffix = c("_july", "_june"))
+  df_compare = inner_join(y = june.downcast, x = downcast,
+               by = c("Station", "Cast", "depSM"),
+               suffix = c("_july", "_june"))
 
 
 par(mfrow = c(1, 3))
-plot(x = downcast$t090C, y = june.downcast$t090C, pch = '.', xlab = 'Temperature (with Filter/cellTM)', ylab = 'Temperature (without Filter/cellTM)')
-abline(a = 0, b =1, col = 'red', lty = 2)
-plot(x = downcast$c0mS.cm, y = june.downcast$c0mS.cm, pch = '.',  xlab = 'Conductivity (with Filter/cellTM)', ylab = 'Conductivity (without Filter/cellTM)')
-abline(a = 0, b =1, col = 'red', lty = 2)
-plot(x = downcast$sal00, y = june.downcast$sal00, pch = '.', xlab = 'Salinity (with Filter/cellTM)', ylab = 'Salinity (without Filter/cellTM)')
-abline(a = 0, b =1, col = 'red', lty = 2)
-
-colbar = get.pal(n = 20, pal = 'parula')
-par(mfrow = c(1, 3))
-plot(x = june.downcast$t090C, 
-     y = june.downcast$t090C-downcast$t090C, 
+plot(x = df_compare$t090C_june, 
+     y = df_compare$t090C_june-df_compare$t090C_july, 
      pch = '.', xlab = 'Temperature (without Filter/cellTM)', ylab = 'Temperature-Temperature (new)',
      col = make.pal(x = june.downcast$Station, n = 20, pal = 'parula', min = 1, max = 45))
-plot(x = june.downcast$c0mS.cm, 
-     y = june.downcast$c0mS.cm-downcast$c0mS.cm, pch = '.',  
+plot(x = df_compare$c0mS.cm_june, 
+     y = df_compare$c0mS.cm_june-df_compare$c0mS.cm_july, pch = '.',  
      xlab = 'Conductivity (without Filter/cellTM)', ylab = 'Conductivity-Conductivity(new)',
-     col = make.pal(x = june.downcast$Station, n = 20, pal = 'parula', min = 1, max = 45))
-plot(x = june.downcast$sal00, y = june.downcast$sal00-downcast$sal00, pch = '.', 
+     col = make.pal(x = df_compare$Station, n = 20, pal = 'parula', min = 1, max = 45))
+plot(x = df_compare$sal00_june, y = df_compare$sal00_june-df_compare$sal00_july, pch = '.', 
      xlab = 'Salinity (without Filter/cellTM)', ylab = 'Salinity-Salinity(new)',
+     col = make.pal(x = df_compare$Station, n = 20, pal = 'parula', min = 1, max = 45))
+
+plot(x = df_compare$t090C_june, 
+     y = df_compare$t090C_june-df_compare$t090C_july, 
+     pch = '.', xlab = 'Temperature (without Filter/cellTM)', ylab = 'Temperature-Temperature (new)',
      col = make.pal(x = june.downcast$Station, n = 20, pal = 'parula', min = 1, max = 45))
-
-check = downcast
-check$TminusT = june.downcast$t090C-downcast$t090C
-check$CminusC = june.downcast$c0mS.cm-downcast$c0mS.cm
-check$SminusS = june.downcast$sal00-downcast$sal00
-
-check$Station[abs(check$TminusT) > 0.0005]  
-check$Station[abs(check$CminusC) > 0.0005]
-check$Station[abs(check$SminusS) > 0.0005]
-
-check$depSM[abs(check$TminusT) > 0.0005]  
-check$depSM[abs(check$CminusC) > 0.0005]
-check$depSM[abs(check$SminusS) > 0.0005]
-
-check$Cast[abs(check$TminusT) > 0.0005]  
-check$Cast[abs(check$CminusC) > 0.0005]
-check$Cast[abs(check$SminusS) > 0.0005]
-
-
-plot(check$t090C[check$Station == 15], y = check$depSM[check$Station == 15], ylim = c(250, 0), pch = '.',
-     xlab = 'Temperature (ITS-90 deg C)', ylab = 'Depth (m)')
-points(check$t090C[check$Station == 15 & check$Cast == 2], 
-       y = check$depSM[check$Station == 15 & check$Cast == 2], 
-       ylim = c(250, 0), pch = '.', cex = 2, col = 'green')
-plot(check$c0mS.cm[check$Station == 15], y = check$depSM[check$Station == 15], ylim = c(250, 0), pch = '.',
-     xlab = 'Conductivity (uS/cm)', ylab = 'Depth (m)')
-points(check$c0mS.cm[check$Station == 15 & check$Cast == 2], 
-       y = check$depSM[check$Station == 15 & check$Cast == 2], 
-       ylim = c(250, 0), pch = '.', cex = 2, col = 'green', 
-       xlab = 'Salinity (ppt)', ylab = 'Depth (m)')
-mtext('black = station 15, cast 1; green = station 15, cast 2', side = 3 )
-plot(check$sal00[check$Station == 15], y = check$depSM[check$Station == 15], ylim = c(250, 0), pch = '.')
-points(check$sal00[check$Station == 15 & check$Cast == 2], 
-       y = check$depSM[check$Station == 15 & check$Cast == 2], 
-       ylim = c(250, 0), pch = '.', cex = 2, col = 'green')
-mtext('black = station 15, cast 1; green = station 15, cast 2', side = 3 )
-points(june.downcast$sal00[june.downcast$Station == 15 & check$Cast == 2], 
-       y = june.downcast$depSM[june.downcast$Station == 15 & check$Cast == 2], 
-       ylim = c(250, 0), pch = '.', cex = 2, col = 'blue')
+plot(x = df_compare$c0mS.cm_june, 
+     y = df_compare$c0mS.cm_june-df_compare$c0mS.cm_july, pch = '.',  
+     xlab = 'Conductivity (without Filter/cellTM)', ylab = 'Conductivity-Conductivity(new)',
+     col = make.pal(x = df_compare$Station, n = 20, pal = 'parula', min = 1, max = 45))
+plot(x = df_compare$sal00_june, y = df_compare$sal00_june-df_compare$sal00_july, pch = '.', 
+     xlab = 'Salinity (without Filter/cellTM)', ylab = 'Salinity-Salinity(new)',
+     col = make.pal(x = df_compare$Station, n = 20, pal = 'parula', min = 1, max = 45))
 
 
 #### Data Exploration ####
